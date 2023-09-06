@@ -1,0 +1,5 @@
+---
+  db_name: "logs"
+  db_table: "log_t"
+  db_user: "logger"
+  db_pass: "derParol"

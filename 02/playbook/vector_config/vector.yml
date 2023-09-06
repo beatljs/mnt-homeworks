@@ -1,0 +1,24 @@
+---
+  sources:
+    my_log_file:
+      type: "file"
+      read_from: beginning
+      ignore_older_secs: 600
+      data_dir: "/home/beatl/mnt-homeworks/02/playbook/logs"
+      include:
+        - "/home/beatl/mnt-homeworks/02/playbook/logs/*.log"
+  sinks:
+    to_clickhouse:
+      type: clickhouse
+      inputs:
+        - my_log_file
+      endpoint: http://localhost:8123
+      database: logs
+      table: log_t
+      auth:
+        strategy: basic
+        password: derParol
+        user: logger
+      date_time_best_effort: true
+      skip_unknown_fields: true
+      compression: gzip
