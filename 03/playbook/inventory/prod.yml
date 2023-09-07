@@ -2,8 +2,15 @@
 clickhouse:
   hosts:
     clickhouse-01:
-      ansible_connection: local
+      ansible_host: 84.201.179.27
+      ansible_user: beatl
 vector:
   hosts:
     vector-01:
-      ansible_connection: local
+      ansible_host: 84.252.138.229
+      ansible_user: beatl
+lighthouse:
+  hosts:
+    lighthouse-01:
+      ansible_host: 158.160.2.65
+      ansible_user: beatl
