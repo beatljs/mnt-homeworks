@@ -1,6 +1,2 @@
 ---
-  vector_version: "0.32.1"
-  vector_package: "vector"
-  vector_url: "https://packages.timber.io/vector"
-  vector_config_dir: "{{ playbook_dir }}/vector_config"
-  vector_log_dir: "{{ playbook_dir }}/logs"
+vector_version: "0.32.1"
