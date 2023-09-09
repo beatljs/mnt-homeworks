@@ -4,9 +4,9 @@
       type: "file"
       read_from: beginning
       ignore_older_secs: 600
-      data_dir: "/home/beatl/mnt-homeworks/03/playbook/logs"
+      data_dir: "/home/beatl/mnt-homeworks/04/playbook/logs"
       include:
-        - "/home/beatl/mnt-homeworks/03/playbook/logs/*.log"
+        - "/home/beatl/mnt-homeworks/04/playbook/logs/*.log"
   sinks:
     to_clickhouse:
       type: clickhouse
