@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Sergey Zhukov
+  description: Clickhouse install and config
+  company: Netology-DevOps-32
+
+  license: MIT
+
+  min_ansible_version: 2.15
+
+  platforms:
+    - name: Debian
+      versions:
+        - 11
+
+  galaxy_tags: []
+
+dependencies: []

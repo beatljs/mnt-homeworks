@@ -1,0 +1,9 @@
+---
+- name: Converge
+  become: true
+  hosts: all
+  remote_user: root
+  tasks:
+    - name: "Include vector-role"
+      ansible.builtin.include_role:
+        name: "vector-role"

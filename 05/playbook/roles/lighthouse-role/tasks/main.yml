@@ -1,0 +1,43 @@
+---
+# tasks file for lighthouse-role
+- name: Lighthouse | Nginx | Install from apt
+  become: true
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+  notify: Lighthouse | Restart Nginx Service
+
+- name: Lighthouse | Install unzip
+  become: true
+  ansible.builtin.apt:
+    name: unzip
+    state: present
+    update_cache: true
+
+- name: Lighthouse | Download zip package
+  ansible.builtin.get_url:
+    url: "{{ lighthouse_zip_url }}/master.zip"
+    dest: "./lighthouse.zip"
+    mode: "0644"
+
+- name: Lighthouse | Unarch zip package to nginx homedir
+  become: true
+  ansible.builtin.unarchive:
+    src: ./lighthouse.zip
+    dest: /var/www/html/
+    remote_src: true
+  notify: Lighthouse | Restart Nginx Service
+
+- name: Make nginx config
+  become: true
+  ansible.builtin.template:
+    src: ./templates/default.j2
+    dest: /etc/nginx/sites-enabled/default
+    mode: "0644"
+  notify: Lighthouse | Restart Nginx Service
+
+- name: Lighthouse | Delete zip package
+  ansible.builtin.file:
+    path: "./lighthouse.zip"
+    state: absent

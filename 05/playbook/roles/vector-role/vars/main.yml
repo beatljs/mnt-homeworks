@@ -1,0 +1,3 @@
+---
+# vars file for vector-role
+vector_config_dir: "{{ playbook_dir }}/v_conf"
