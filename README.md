@@ -6,7 +6,7 @@
 
 ---
 
-## Решение по домашнему заданию к занятию 5 «Тестирование roles»
+## Решение по домашнему заданию к занятию 5 «Тестирование roles» c использованием `molecule`
 
 Пока черновик... 
 
@@ -21,246 +21,488 @@
 ###### Description
 ### Описание
 
-Здесь приводится исходный код `ansible-playbook`, выполняющий установку DB `Clickhouse`, транспортировщика логов `Vector` и `lighthouse` для отображения логов.
+Здесь приводится результат выполнения домашнего задания 5 «Тестирование roles» c использованием `molecule`.
 
-Playbook написан для выполнения домашнего задания 4 в рамках обучения работе с `Ansible` и базируется на коде `playbook` из домашнего задания 3.
+Код написан для выполнения домашнего задания 5 в рамках обучения работе с `Ansible` и базируется на коде из домашнего задания 4.
 
-В развитие навыков работы с `ansible` в настоящем `playbook` `task` оформлены в виде `roles` и в самом `playbook` вместо написания `task` вызываются роли.
+В развитие навыков работы с `ansible` в настоящем коде сформированы каталоги и сценарии `molecule` для выполнения тестрования роли `vector-role`.
 
-Роль для развертывания `clickhouse` - скачивается с git по ссылке из файла с ДЗ.
+Тестирование роли `vector-role` реализовано через контейнеры `docker` для платформ `centos:7` и `debian`.
 
-Учебные роли для `vector` и `lighthouse` написаны самостоятельно на базе `playbook` из задания 3 и выложены на GitHub. Ссылки для скачивания и номера рабочих версий укзаны в файле `requirements.yml`   
 
 ---
 
 ###### Requirements
 ### Требования к инфрастуктуре
 
-Для успешного запуска и выполнения настоящего playbook требуется создать в облаке три виртуальных машины с ОС Linux.
-1. clickhouse-01 - VM для развертывания clickhouse: 2 CPU, 4 Gb RAM, 20 Gb HDD 
-2. vector-01 - VM для развертывания vector: 2 CPU, 2 Gb RAM, 20 Gb HDD
-3. lighthouse-01 - VM для развертывания lighthouse: 2 CPU, 2 Gb RAM, 20 Gb HDD
+Для успешного запуска тестирования требуется на `control node`: 
 
-Загрузить роли, выполнив команду.
+1. Docker version 18.09.1, build 4c52b90
+2. Установленный Python 3.9.1
+3. Ansible [core 2.15.3]
+4. Установленный пакет molecule: `pip3 install "molecule==3.5.2"`. Имеено этой версии, на последней версии работать не будет. 
+5. Драйвер `pip3 install "molecule_docker==1.1.0"`. Именно этой версии! 
 
-```
-ansible-galaxy install -f -r requirements.yml
-```
 ---
 
 ###### Vars and Setup
 ### Переменные и настройки
 
-Перед запуском `playbook` требуется его предварительная настройка.
-Настройка производится путем создания корректного inventory файла и задания переменных.
-
-Окружение на котором запускается playbook - настраивается в файле `/inventory/prod.yml`
-
-В группе `clickhouse` указывается хост на котором должен быть развернут `clickhouse`,
-
-в группе `vector` - хост(ы) где должен быть развернут `vector`,
-
-В группе `lighthouse` - хост где должен быть развернут `lighthouse`.
-
-IP адреса хостов и имена пользователей берутся из облака в соответствии с созданными VM. 
+Для запуска тестирования в рамках настоящего ДЗ настроек переменных не требуется.
 
 ---
 
 ###### Play
 ### Запуск
 
-Запуск playbook: 
+Запуск тестирования: 
+
+Запуск должен производиться из каталога `playbook/roles/vector-role`: 
 
 ``` 
-ansible-playbook --flush-cache -i inventory/prod.yml site.yml`
-```
+molecule test -s centos_debian
 
-запуск должен производиться из каталога `playbook` содержащего файл `site.yml` 
+```
 
 <details>
     <summary> Вывод ansible...  </summary>
 
 ```
-beatl@OWEN:~/mnt-homeworks/04/playbook$ ansible-playbook --flush-cache -i inventory/prod.yml site.yml
+beatl@OWEN:~/mnt-homeworks/05/playbook/roles/vector-role$ molecule test -s centos_debian 
+INFO     centos_debian scenario test matrix: dependency, lint, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun...
+INFO     Set ANSIBLE_LIBRARY=/home/beatl/.cache/ansible-compat/f5bcd7/modules:/home/beatl/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/home/beatl/.cache/ansible-compat/f5bcd7/collections:/home/beatl/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/home/beatl/.cache/ansible-compat/f5bcd7/roles:/home/beatl/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Running centos_debian > dependency
+WARNING  Skipping, missing the requirements file.
+WARNING  Skipping, missing the requirements file.
+INFO     Running centos_debian > lint
+COMMAND: yamllint .
+ansible-lint
+flake8
 
-PLAY [Install Clickhouse] **********************************************************************************************************************************************************************************************************
 
-TASK [Gathering Facts] *************************************************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+Passed: 0 failure(s), 0 warning(s) on 24 files. Last profile that met the validation criteria was 'production'.
+INFO     Running centos_debian > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Running centos_debian > destroy
+INFO     Sanity checks: 'docker'
 
-TASK [clickhouse : Include OS Family Specific Variables] ***************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+PLAY [Destroy] *****************************************************************
 
-TASK [clickhouse : include_tasks] **************************************************************************************************************************************************************************************************
-included: /home/beatl/.ansible/roles/clickhouse/tasks/precheck.yml for clickhouse-01
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=centos_7)
+changed: [localhost] => (item=debian_buster)
 
-TASK [clickhouse : Requirements check | Checking sse4_2 support] *******************************************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [Wait for instance(s) deletion to complete] *******************************
+ok: [localhost] => (item=centos_7)
+ok: [localhost] => (item=debian_buster)
 
-TASK [clickhouse : Requirements check | Not supported distribution && release] *****************************************************************************************************************************************************
-skipping: [clickhouse-01]
+TASK [Delete docker networks(s)] ***********************************************
+skipping: [localhost]
 
-TASK [clickhouse : include_tasks] **************************************************************************************************************************************************************************************************
-included: /home/beatl/.ansible/roles/clickhouse/tasks/params.yml for clickhouse-01
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
 
-TASK [clickhouse : Set clickhouse_service_enable] **********************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+INFO     Running centos_debian > syntax
 
-TASK [clickhouse : Set clickhouse_service_ensure] **********************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+playbook: /home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/converge.yml
+INFO     Running centos_debian > create
 
-TASK [clickhouse : include_tasks] **************************************************************************************************************************************************************************************************
-included: /home/beatl/.ansible/roles/clickhouse/tasks/install/apt.yml for clickhouse-01
+PLAY [Create] ******************************************************************
 
-TASK [clickhouse : Install by APT | Apt-key add repo key] **************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [Log into a Docker registry] **********************************************
+skipping: [localhost] => (item=None) 
+skipping: [localhost] => (item=None) 
+skipping: [localhost]
 
-TASK [clickhouse : Install by APT | Remove old repo] *******************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [Check presence of custom Dockerfiles] ************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/usr/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos_7', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']})
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'sudo', 'container': 'docker'}, 'image': 'python:3.8-slim-buster', 'name': 'debian_buster', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']})
 
-TASK [clickhouse : Install by APT | Repo installation] *****************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [Create Dockerfiles from image names] *************************************
+changed: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/usr/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos_7', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']})
+changed: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'sudo', 'container': 'docker'}, 'image': 'python:3.8-slim-buster', 'name': 'debian_buster', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']})
 
-TASK [clickhouse : Install by APT | Package installation] **************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [Discover local Docker images] ********************************************
+ok: [localhost] => (item={'diff': [], 'dest': '/home/beatl/.cache/molecule/vector-role/centos_debian/Dockerfile_centos_7', 'src': '/home/beatl/.ansible/tmp/ansible-tmp-1695009499.7401357-56286-267866889609512/source', 'md5sum': '66eab1607b3083050b102b976560c944', 'checksum': '5486d641b43265faca0cc762ec2149f46293ce71', 'changed': True, 'uid': 1000, 'gid': 1000, 'owner': 'beatl', 'group': 'beatl', 'mode': '0600', 'state': 'file', 'size': 1390, 'invocation': {'module_args': {'src': '/home/beatl/.ansible/tmp/ansible-tmp-1695009499.7401357-56286-267866889609512/source', 'dest': '/home/beatl/.cache/molecule/vector-role/centos_debian/Dockerfile_centos_7', 'mode': '0600', 'follow': False, '_original_basename': 'Dockerfile.j2', 'checksum': '5486d641b43265faca0cc762ec2149f46293ce71', 'backup': False, 'force': True, 'unsafe_writes': False, 'content': None, 'validate': None, 'directory_mode': None, 'remote_src': None, 'local_follow': None, 'owner': None, 'group': None, 'seuser': None, 'serole': None, 'selevel': None, 'setype': None, 'attributes': None}}, 'failed': False, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/usr/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos_7', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']}, 'ansible_loop_var': 'item', 'i': 0, 'ansible_index_var': 'i'})
+ok: [localhost] => (item={'diff': [], 'dest': '/home/beatl/.cache/molecule/vector-role/centos_debian/Dockerfile_python_3_8_slim_buster', 'src': '/home/beatl/.ansible/tmp/ansible-tmp-1695009500.527296-56286-1370001063594/source', 'md5sum': '93b744be6a1fdf35780cc8ee6a40edec', 'checksum': 'aa3d0e47d37d18ea815acbe86110445e356dfa4d', 'changed': True, 'uid': 1000, 'gid': 1000, 'owner': 'beatl', 'group': 'beatl', 'mode': '0600', 'state': 'file', 'size': 1399, 'invocation': {'module_args': {'src': '/home/beatl/.ansible/tmp/ansible-tmp-1695009500.527296-56286-1370001063594/source', 'dest': '/home/beatl/.cache/molecule/vector-role/centos_debian/Dockerfile_python_3_8_slim_buster', 'mode': '0600', 'follow': False, '_original_basename': 'Dockerfile.j2', 'checksum': 'aa3d0e47d37d18ea815acbe86110445e356dfa4d', 'backup': False, 'force': True, 'unsafe_writes': False, 'content': None, 'validate': None, 'directory_mode': None, 'remote_src': None, 'local_follow': None, 'owner': None, 'group': None, 'seuser': None, 'serole': None, 'selevel': None, 'setype': None, 'attributes': None}}, 'failed': False, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'sudo', 'container': 'docker'}, 'image': 'python:3.8-slim-buster', 'name': 'debian_buster', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']}, 'ansible_loop_var': 'item', 'i': 1, 'ansible_index_var': 'i'})
 
-TASK [clickhouse : Install by APT | Package installation] **************************************************************************************************************************************************************************
-skipping: [clickhouse-01]
+TASK [Build an Ansible compatible image (new)] *********************************
+ok: [localhost] => (item=molecule_local/centos:7)
+ok: [localhost] => (item=molecule_local/python:3.8-slim-buster)
 
-TASK [clickhouse : Hold specified version during APT upgrade | Package installation] ***********************************************************************************************************************************************
-ok: [clickhouse-01] => (item=clickhouse-client)
-ok: [clickhouse-01] => (item=clickhouse-server)
-ok: [clickhouse-01] => (item=clickhouse-common-static)
+TASK [Create docker network(s)] ************************************************
+skipping: [localhost]
 
-TASK [clickhouse : include_tasks] **************************************************************************************************************************************************************************************************
-included: /home/beatl/.ansible/roles/clickhouse/tasks/configure/sys.yml for clickhouse-01
+TASK [Determine the CMD directives] ********************************************
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/usr/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos_7', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']})
+ok: [localhost] => (item={'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'sudo', 'container': 'docker'}, 'image': 'python:3.8-slim-buster', 'name': 'debian_buster', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']})
 
-TASK [clickhouse : Check clickhouse config, data and logs] *************************************************************************************************************************************************************************
-ok: [clickhouse-01] => (item=/var/log/clickhouse-server)
-ok: [clickhouse-01] => (item=/etc/clickhouse-server)
-ok: [clickhouse-01] => (item=/var/lib/clickhouse/tmp/)
-ok: [clickhouse-01] => (item=/var/lib/clickhouse/)
+TASK [Create molecule instance(s)] *********************************************
+changed: [localhost] => (item=centos_7)
+changed: [localhost] => (item=debian_buster)
 
-TASK [clickhouse : Config | Create config.d folder] ********************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [Wait for instance(s) creation to complete] *******************************
+changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': 'j795838832370.56499', 'results_file': '/home/beatl/.ansible_async/j795838832370.56499', 'changed': True, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/usr/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'wheel', 'container': 'docker'}, 'image': 'centos:7', 'name': 'centos_7', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']}, 'ansible_loop_var': 'item'})
+FAILED - RETRYING: [localhost]: Wait for instance(s) creation to complete (300 retries left).
+changed: [localhost] => (item={'failed': 0, 'started': 1, 'finished': 0, 'ansible_job_id': 'j982876238171.56525', 'results_file': '/home/beatl/.ansible_async/j982876238171.56525', 'changed': True, 'item': {'capabilities': ['SYS_ADMIN'], 'command': '/sbin/init', 'dockerfile': '../resources/Dockerfile.j2', 'env': {'ANSIBLE_USER': 'ansible', 'DEPLOY_GROUP': 'deployer', 'SUDO_GROUP': 'sudo', 'container': 'docker'}, 'image': 'python:3.8-slim-buster', 'name': 'debian_buster', 'privileged': True, 'tmpfs': ['/run', '/tmp'], 'volumes': ['/sys/fs/cgroup:/sys/fs/cgroup']}, 'ansible_loop_var': 'item'})
 
-TASK [clickhouse : Config | Create users.d folder] *********************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
 
-TASK [clickhouse : Config | Generate system config] ********************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+INFO     Running centos_debian > prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Running centos_debian > converge
 
-TASK [clickhouse : Config | Generate users config] *********************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+PLAY [Converge] ****************************************************************
 
-TASK [clickhouse : Config | Generate remote_servers config] ************************************************************************************************************************************************************************
-skipping: [clickhouse-01]
+TASK [Gathering Facts] *********************************************************
+ok: [debian_buster]
+ok: [centos_7]
 
-TASK [clickhouse : Config | Generate macros config] ********************************************************************************************************************************************************************************
-skipping: [clickhouse-01]
+TASK [Include vector-role] *****************************************************
 
-TASK [clickhouse : Config | Generate zookeeper servers config] *********************************************************************************************************************************************************************
-skipping: [clickhouse-01]
+TASK [vector-role : Create temp directory] *************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/tmpd",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [clickhouse : Config | Fix interserver_http_port and intersever_https_port collision] *****************************************************************************************************************************************
-skipping: [clickhouse-01]
+changed: [centos_7]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/tmpd",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [clickhouse : Notify Handlers Now] ********************************************************************************************************************************************************************************************
+changed: [debian_buster]
 
-TASK [clickhouse : include_tasks] **************************************************************************************************************************************************************************************************
-included: /home/beatl/.ansible/roles/clickhouse/tasks/service.yml for clickhouse-01
+TASK [vector-role : Get vector distrib] ****************************************
+changed: [centos_7]
+changed: [debian_buster]
 
-TASK [clickhouse : Ensure clickhouse-server.service is enabled: True and state: started] *******************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [vector-role : Create root directory] *************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/tmpd/vector-0.29.1",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [clickhouse : Wait for Clickhouse Server to Become Ready] *********************************************************************************************************************************************************************
-ok: [clickhouse-01]
+changed: [centos_7]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/tmpd/vector-0.29.1",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [clickhouse : include_tasks] **************************************************************************************************************************************************************************************************
-included: /home/beatl/.ansible/roles/clickhouse/tasks/configure/db.yml for clickhouse-01
+changed: [debian_buster]
 
-TASK [clickhouse : Set ClickHose Connection String] ********************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [vector-role : Extract vector] ********************************************
+changed: [debian_buster]
+changed: [centos_7]
 
-TASK [clickhouse : Gather list of existing databases] ******************************************************************************************************************************************************************************
-ok: [clickhouse-01]
+TASK [vector-role : Copy vector to bin with owner and permissions] *************
+changed: [debian_buster]
+changed: [centos_7]
 
-TASK [clickhouse : Config | Delete database config] ********************************************************************************************************************************************************************************
-skipping: [clickhouse-01]
+TASK [vector-role : Configure vector.service from template] ********************
+--- before
++++ after: /home/beatl/.ansible/tmp/ansible-local-57089222emba8/tmpwigqxqo6/vector.service.j2
+@@ -0,0 +1,18 @@
++[Unit]
++Description=Vector
++Documentation=https://vector.dev
++After=network-online.target
++Requires=network-online.target
++
++[Service]
++User=root
++Group=0
++ExecStartPre=/usr/bin/vector validate --no-environment --config-yaml /home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/v_conf/vector.yml
++ExecStart=/usr/bin/vector --config-yaml /home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/v_conf/vector.yml --watch-config
++ExecReload=/usr/bin/vector validate --no-environment --config-yaml /home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/v_conf/vector.yml
++Restart=no
++AmbientCapabilities=CAP_NET_BIND_SERVICE
++EnvironmentFile=-/etc/default/vector
++
++[Install]
++WantedBy=multi-user.target
+\ No newline at end of file
 
-TASK [clickhouse : Config | Create database config] ********************************************************************************************************************************************************************************
-skipping: [clickhouse-01]
+changed: [centos_7]
+--- before
++++ after: /home/beatl/.ansible/tmp/ansible-local-57089222emba8/tmpioyc18u0/vector.service.j2
+@@ -0,0 +1,18 @@
++[Unit]
++Description=Vector
++Documentation=https://vector.dev
++After=network-online.target
++Requires=network-online.target
++
++[Service]
++User=root
++Group=0
++ExecStartPre=/usr/bin/vector validate --no-environment --config-yaml /home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/v_conf/vector.yml
++ExecStart=/usr/bin/vector --config-yaml /home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/v_conf/vector.yml --watch-config
++ExecReload=/usr/bin/vector validate --no-environment --config-yaml /home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/v_conf/vector.yml
++Restart=no
++AmbientCapabilities=CAP_NET_BIND_SERVICE
++EnvironmentFile=-/etc/default/vector
++
++[Install]
++WantedBy=multi-user.target
+\ No newline at end of file
 
-TASK [clickhouse : include_tasks] **************************************************************************************************************************************************************************************************
-included: /home/beatl/.ansible/roles/clickhouse/tasks/configure/dict.yml for clickhouse-01
+changed: [debian_buster]
 
-TASK [clickhouse : Config | Generate dictionary config] ****************************************************************************************************************************************************************************
-skipping: [clickhouse-01]
+TASK [vector-role : Create config dir for vector] ******************************
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "mode": "0755",
++    "mode": "0644",
+     "path": "/home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/v_conf",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [clickhouse : include_tasks] **************************************************************************************************************************************************************************************************
-skipping: [clickhouse-01]
+changed: [centos_7]
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "mode": "0755",
++    "mode": "0644",
+     "path": "/home/beatl/mnt-homeworks/05/playbook/roles/vector-role/molecule/centos_debian/v_conf",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-PLAY [Install Vector] **************************************************************************************************************************************************************************************************************
+changed: [debian_buster]
 
-TASK [Gathering Facts] *************************************************************************************************************************************************************************************************************
-ok: [vector-01]
+TASK [vector-role : Configure vector from template] ****************************
+--- before
++++ after: /home/beatl/.ansible/tmp/ansible-local-57089222emba8/tmpiqloqsg3/vector.yml.j2
+@@ -0,0 +1,20 @@
++data_dir: /var/lib/vector
++sinks:
++    to_clickhouse:
++        compression: gzip
++        database: logs
++        endpoint: http://127.0.0.1:8123
++        inputs:
++        - sample_file
++        skip_unknown_fields: true
++        table: local_log
++        type: clickhouse
++sources:
++    sample_file:
++        ignore_older_secs: 600
++        include:
++        - /var/log/**/*.log
++        read_from: beginning
++        type: file
++    vector_log:
++        type: internal_logs
 
-TASK [vector-role : Vector | Get distrib] ******************************************************************************************************************************************************************************************
-ok: [vector-01]
+changed: [centos_7]
+--- before
++++ after: /home/beatl/.ansible/tmp/ansible-local-57089222emba8/tmpiun52zwk/vector.yml.j2
+@@ -0,0 +1,20 @@
++data_dir: /var/lib/vector
++sinks:
++    to_clickhouse:
++        compression: gzip
++        database: logs
++        endpoint: http://127.0.0.1:8123
++        inputs:
++        - sample_file
++        skip_unknown_fields: true
++        table: local_log
++        type: clickhouse
++sources:
++    sample_file:
++        ignore_older_secs: 600
++        include:
++        - /var/log/**/*.log
++        read_from: beginning
++        type: file
++    vector_log:
++        type: internal_logs
 
-TASK [vector-role : Vector | Install package] **************************************************************************************************************************************************************************************
-ok: [vector-01]
+changed: [debian_buster]
 
-TASK [vector-role : Vector | Configure | ensure what config directory exists] ******************************************************************************************************************************************************
-ok: [vector-01]
+TASK [vector-role : Create data directory] *************************************
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "mode": "0755",
++    "mode": "0777",
+     "path": "/var/lib/vector",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [vector-role : Vector | Configure | Template config] **************************************************************************************************************************************************************************
-changed: [vector-01]
+changed: [centos_7]
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "mode": "0755",
++    "mode": "0777",
+     "path": "/var/lib/vector",
+-    "state": "absent"
++    "state": "directory"
+ }
 
-TASK [vector-role : Vector | Prepare and setup unit from template] *****************************************************************************************************************************************************************
-changed: [vector-01]
+changed: [debian_buster]
 
-TASK [vector-role : Vector | Flush handlers] ***************************************************************************************************************************************************************************************
+TASK [vector-role : Flush handlers] ********************************************
 
-RUNNING HANDLER [vector-role : Vector | Restart Service] ***************************************************************************************************************************************************************************
-changed: [vector-01]
+TASK [vector-role : Flush handlers] ********************************************
 
-TASK [vector-role : Vector | Create Log Dir] ***************************************************************************************************************************************************************************************
-changed: [vector-01]
+RUNNING HANDLER [vector-role : Restart Vector service] *************************
+changed: [debian_buster]
+changed: [centos_7]
 
-PLAY [Install lighthouse] **********************************************************************************************************************************************************************************************************
+PLAY RECAP *********************************************************************
+centos_7                   : ok=11   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+debian_buster              : ok=11   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-TASK [Gathering Facts] *************************************************************************************************************************************************************************************************************
-The authenticity of host '84.201.161.171 (84.201.161.171)' can't be established.
-ECDSA key fingerprint is SHA256:+BzVIvlhqwEaThlNtIOvONSHdLTB/NMxGigih+3l3d0.
-Are you sure you want to continue connecting (yes/no)? yes
-ok: [lighthouse-01]
+INFO     Running centos_debian > idempotence
 
-TASK [lighthouse-role : Lighthouse | Nginx | Install from apt] *********************************************************************************************************************************************************************
-changed: [lighthouse-01]
+PLAY [Converge] ****************************************************************
 
-TASK [lighthouse-role : Lighthouse | Install unzip] ********************************************************************************************************************************************************************************
-ok: [lighthouse-01]
+TASK [Gathering Facts] *********************************************************
+ok: [debian_buster]
+ok: [centos_7]
 
-TASK [lighthouse-role : Lighthouse | Download zip package] *************************************************************************************************************************************************************************
-changed: [lighthouse-01]
+TASK [Include vector-role] *****************************************************
 
-TASK [lighthouse-role : Lighthouse | Unarch zip package to nginx homedir] **********************************************************************************************************************************************************
-changed: [lighthouse-01]
+TASK [vector-role : Create temp directory] *************************************
+ok: [centos_7]
+ok: [debian_buster]
 
-TASK [lighthouse-role : Make nginx config] *****************************************************************************************************************************************************************************************
-changed: [lighthouse-01]
+TASK [vector-role : Get vector distrib] ****************************************
+ok: [debian_buster]
+ok: [centos_7]
 
-TASK [lighthouse-role : Lighthouse | Delete zip package] ***************************************************************************************************************************************************************************
-changed: [lighthouse-01]
+TASK [vector-role : Create root directory] *************************************
+ok: [centos_7]
+ok: [debian_buster]
 
-RUNNING HANDLER [lighthouse-role : Lighthouse | Restart Nginx Service] *************************************************************************************************************************************************************
-changed: [lighthouse-01]
+TASK [vector-role : Extract vector] ********************************************
+ok: [debian_buster]
+ok: [centos_7]
 
-PLAY RECAP *************************************************************************************************************************************************************************************************************************
-clickhouse-01              : ok=26   changed=0    unreachable=0    failed=0    skipped=10   rescued=0    ignored=0   
-lighthouse-01              : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-vector-01                  : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+TASK [vector-role : Copy vector to bin with owner and permissions] *************
+ok: [centos_7]
+ok: [debian_buster]
+
+TASK [vector-role : Configure vector.service from template] ********************
+ok: [centos_7]
+ok: [debian_buster]
+
+TASK [vector-role : Create config dir for vector] ******************************
+ok: [centos_7]
+ok: [debian_buster]
+
+TASK [vector-role : Configure vector from template] ****************************
+ok: [centos_7]
+ok: [debian_buster]
+
+TASK [vector-role : Create data directory] *************************************
+ok: [centos_7]
+ok: [debian_buster]
+
+TASK [vector-role : Flush handlers] ********************************************
+
+TASK [vector-role : Flush handlers] ********************************************
+
+PLAY RECAP *********************************************************************
+centos_7                   : ok=10   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+debian_buster              : ok=10   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Idempotence completed successfully.
+INFO     Running centos_debian > side_effect
+WARNING  Skipping, side effect playbook not configured.
+INFO     Running centos_debian > verify
+INFO     Running Ansible Verifier
+
+PLAY [Verify] ******************************************************************
+
+TASK [Get Vector version] ******************************************************
+ok: [debian_buster]
+ok: [centos_7]
+
+TASK [Assert Vector instalation] ***********************************************
+ok: [centos_7] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [debian_buster] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Validation Vector configuration] *****************************************
+ok: [debian_buster]
+ok: [centos_7]
+
+TASK [Assert Vector validate config] *******************************************
+ok: [centos_7] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [debian_buster] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY RECAP *********************************************************************
+centos_7                   : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+debian_buster              : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Verifier completed successfully.
+INFO     Running centos_debian > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Running centos_debian > destroy
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+changed: [localhost] => (item=centos_7)
+changed: [localhost] => (item=debian_buster)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: [localhost]: Wait for instance(s) deletion to complete (300 retries left).
+changed: [localhost] => (item=centos_7)
+changed: [localhost] => (item=debian_buster)
+
+TASK [Delete docker networks(s)] ***********************************************
+skipping: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Pruning extra files from scenario ephemeral directory
 ```
 </details>
 
