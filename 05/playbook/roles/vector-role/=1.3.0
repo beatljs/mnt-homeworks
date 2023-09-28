@@ -1,0 +1,6 @@
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/download/ansible-posix-1.5.4.tar.gz to /home/beatl/.ansible/tmp/ansible-local-85832jmm8wpn2/tmpmrey7fdz/ansible-posix-1.5.4-g4da7ycj
+Installing 'ansible.posix:1.5.4' to '/home/beatl/.ansible/collections/ansible_collections/ansible/posix'
+ansible.posix:1.5.4 was installed successfully

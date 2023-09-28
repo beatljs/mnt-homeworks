@@ -1,0 +1,6 @@
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/download/containers-podman-1.10.3.tar.gz to /home/beatl/.ansible/tmp/ansible-local-85821lgq6bwqn/tmp9de4ll6y/containers-podman-1.10.3-xevqo02i
+Installing 'containers.podman:1.10.3' to '/home/beatl/.ansible/collections/ansible_collections/containers/podman'
+containers.podman:1.10.3 was installed successfully

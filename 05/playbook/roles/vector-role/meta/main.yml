@@ -3,30 +3,20 @@ galaxy_info:
   namespace: sergey
   author: Sergey Zhukov
   description: Vector install and config
-  company: Netology-DevOps-32
+  company: Netology_DevOps_32
   license: MIT
 
   min_ansible_version: "2.8"
 
   platforms:
-    - name: Ubuntu
-      versions:
-        - focal
-        - bionic
-        - xenial
     - name: Debian
       versions:
-        - bullseye
         - buster
-        - stretch
-        - jessie
     - name: EL
       versions:
         - 'all'
 
   galaxy_tags:
     - vector
-    - database
-    - sql
 
 dependencies: []

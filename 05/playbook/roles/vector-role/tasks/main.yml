@@ -25,7 +25,6 @@
     when: not ansible_check_mode
 - name: Install and Configure Vector
   become: true
-  notify: Restart Vector service
   block:
   - name: Copy vector to bin with owner and permissions
     when: not ansible_check_mode
@@ -56,5 +55,6 @@
       path: "{{ vector_config.data_dir }}"
       state: directory
       mode: 0777
+    notify: Restart Vector service
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
