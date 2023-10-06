@@ -46,6 +46,10 @@ Workflow для остальных задач
 ###### links
 ### Ссылки на .xml workflow
 
+[Workflow для задач bug](https://github.com/beatljs/mnt-homeworks/blob/09-ci-01-intro/Jira/MyWorkflowForBug.xml)
+
+[Workflow для остальных задач](https://github.com/beatljs/mnt-homeworks/blob/09-ci-01-intro/Jira/MyDefaultWorkflow.xml)
+
 ---
 
 
