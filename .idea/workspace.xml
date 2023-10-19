@@ -5,6 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd5328f0-06b0-40bd-b4f9-d2b9fa0b8499" name="Changes" comment="09-ci-01-intro">
+      <change afterPath="$PROJECT_DIR$/images/build.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/builddeploy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/dimage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/issue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/mr.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pod.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/prj.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/res.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/res1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/result1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/gitlab-ci.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/k8s.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/python-api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.terraform.lock.hcl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/k8s-argocd.tf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/provider.tf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/terraformrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/variables.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,8 +61,14 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/README.md" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -54,20 +81,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "OrchideMappingSettingsSimpleMapping.checked": "true",
-    "OrchideMissingMappingConfigurationNotification.disabled": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "09-ci-06-gitlab",
-    "last_opened_file_path": "/home/beatl/arep/ansible/my_collection/beatljs/yandex_cloud_elk/README.md",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "orchideAnsibleMapping"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;OrchideMappingSettingsSimpleMapping.checked&quot;: &quot;true&quot;,
+    &quot;OrchideMissingMappingConfigurationNotification.disabled&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;09-ci-06-gitlab&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/beatl/arep/ansible/my_collection/beatljs/yandex_cloud_elk/README.md&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;orchideAnsibleMapping&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/05/playbook/roles/vector-role/molecule" />
