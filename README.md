@@ -29,7 +29,7 @@
 ###### part1
 ### Часть 1
 
-Проект на сервере GitLab: [GitLab prject](https://gitlab.com/beatljs/myfirstcicdprj)
+Проект на сервере GitLab: [GitLab project](https://gitlab.com/beatljs/myfirstcicdprj)
 
 Файл gitlab-ci.yml: [gitlab-ci.yml](https://gitlab.com/beatljs/myfirstcicdprj/-/blob/main/.gitlab-ci.yml?ref_type=heads)
 
@@ -41,7 +41,7 @@ Dockerfile: [Dockerfile](https://gitlab.com/beatljs/myfirstcicdprj/-/blob/main/D
 
 Решенный Issue: [solved Issue](https://gitlab.com/beatljs/myfirstcicdprj/-/issues/1)
 
-Docker Image в реестре GitLab: [docker image](registry.gitlab.com/beatljs/myfirstcicdprj/python-api)
+Docker Image в реестре GitLab: [docker image](https://gitlab.com/beatljs/myfirstcicdprj/container_registry/5667011)
 
 ---
 

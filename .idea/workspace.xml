@@ -4,29 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd5328f0-06b0-40bd-b4f9-d2b9fa0b8499" name="Changes" comment="09-ci-01-intro">
-      <change afterPath="$PROJECT_DIR$/images/build.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/builddeploy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/dimage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/issue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/mr.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/pod.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/prj.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/res.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/res1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/result1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/gitlab-ci.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/k8s.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/python-api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/requirements.txt" afterDir="false" />
+    <list default="true" id="bd5328f0-06b0-40bd-b4f9-d2b9fa0b8499" name="Changes" comment="09-ci-06-gitlab">
       <change afterPath="$PROJECT_DIR$/src/.terraform.lock.hcl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/k8s-argocd.tf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/provider.tf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/terraformrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/variables.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +37,7 @@
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
         <option name="accountId" value="54b5f066-dce9-4ac2-af86-a94901356995" />
-        <option name="url" value="https://github.com/beatljs/mnt-homeworks.git" />
+        <option name="url" value="git@github.com:beatljs/mnt-homeworks.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -180,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696605759105</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="09-ci-06-gitlab">
+      <option name="closed" value="true" />
+      <created>1697732566111</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1697732566111</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,6 +216,7 @@
     <MESSAGE value="08-ansible-05-testing - molecule" />
     <MESSAGE value="08-ansible-05-testing - molecule + tox" />
     <MESSAGE value="09-ci-01-intro" />
-    <option name="LAST_COMMIT_MESSAGE" value="09-ci-01-intro" />
+    <MESSAGE value="09-ci-06-gitlab" />
+    <option name="LAST_COMMIT_MESSAGE" value="09-ci-06-gitlab" />
   </component>
 </project>
