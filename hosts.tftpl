@@ -1,0 +1,22 @@
+---
+all:
+  hosts:
+%{~ for k,v in config ~}
+  %{~ for i in v }
+    ${i["name"]}:
+      ansible_host: ${i["network_interface"][0]["nat_ip_address"]}
+  %{~ endfor ~}
+%{~ endfor ~}
+  children:
+    jenkins:
+      children:
+%{~ for k,v in config ~}
+  %{~ for i in v }
+        ${i["name"]}s:
+          hosts:
+            ${i["name"]}:
+  %{~ endfor ~}
+%{~ endfor ~}
+  vars:
+    ansible_connection_type: paramiko
+    ansible_user: jenkins

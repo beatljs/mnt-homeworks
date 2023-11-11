@@ -1,0 +1,334 @@
+Started by user Сергей Иванович Жуков
+Running as SYSTEM
+Building remotely on nodeagent (linux ansible) in workspace /home/jenkins/workspace/MyFreeStyleJob
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /home/jenkins/workspace/MyFreeStyleJob/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/beatljs/vector-role.git # timeout=10
+Fetching upstream changes from https://github.com/beatljs/vector-role.git
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+ > git fetch --tags --progress https://github.com/beatljs/vector-role.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/main
+Seen 1 remote branch
+ > git show-ref --tags -d # timeout=10
+Checking out Revision a14386c025532dc6053d6306ebe25f1a099dbfc8 (origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a14386c025532dc6053d6306ebe25f1a099dbfc8 # timeout=10
+Commit message: "Update main.yml"
+ > git rev-list --no-walk a550acf9a905c4df24728834988810468319e680 # timeout=10
+[MyFreeStyleJob] $ /bin/sh -xe /tmp/jenkins6678691589757436942.sh
++ molecule test
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+/home/jenkins/.local/lib/python3.6/site-packages/requests/__init__.py:104: RequestsDependencyWarning: urllib3 (1.26.18) or chardet (5.0.0)/charset_normalizer (2.0.12) doesn't match a supported version!
+  RequestsDependencyWarning)
+INFO     default scenario test matrix: dependency, lint, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun...
+INFO     Set ANSIBLE_LIBRARY=/home/jenkins/.cache/ansible-compat/15b80c/modules:/home/jenkins/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/home/jenkins/.cache/ansible-compat/15b80c/collections:/home/jenkins/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/home/jenkins/.cache/ansible-compat/15b80c/roles:/home/jenkins/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Using /home/jenkins/.ansible/roles/sergey.vector_role symlink to current repository in order to enable Ansible to find the role using its expected full name.
+INFO     Running default > dependency
+WARNING  Skipping, missing the requirements file.
+WARNING  Skipping, missing the requirements file.
+INFO     Running default > lint
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+WARNING: PATH altered to include /usr/bin
+WARNING  /usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+
+WARNING  Loading custom .yamllint config file, this extends our internal yamllint config.
+INFO     Running default > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Running default > destroy
+INFO     Sanity checks: 'docker'
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+changed: [localhost] => (item=pyubuntu)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: Wait for instance(s) deletion to complete (300 retries left).
+ok: [localhost] => (item=pyubuntu)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Running default > syntax
+
+playbook: /home/jenkins/workspace/MyFreeStyleJob/molecule/default/converge.yml
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+INFO     Running default > create
+
+PLAY [Create] ******************************************************************
+
+TASK [Log into a Docker registry] **********************************************
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+skipping: [localhost] => (item=None)
+skipping: [localhost]
+
+TASK [Check presence of custom Dockerfiles] ************************************
+ok: [localhost] => (item={'command': 'systemd', 'image': 'beatljs/pyubuntu:systemd', 'name': 'pyubuntu', 'privileged': True})
+
+TASK [Create Dockerfiles from image names] *************************************
+changed: [localhost] => (item={'command': 'systemd', 'image': 'beatljs/pyubuntu:systemd', 'name': 'pyubuntu', 'privileged': True})
+
+TASK [Discover local Docker images] ********************************************
+ok: [localhost] => (item={'diff': [], 'dest': '/home/jenkins/.cache/molecule/MyFreeStyleJob/default/Dockerfile_beatljs_pyubuntu_systemd', 'src': '/home/jenkins/.ansible/tmp/ansible-tmp-1699624373.8558652-6113-185550216402377/source', 'md5sum': '3fdf51a4e575e714a1183c70787a1dba', 'checksum': '69932a0fdd4289ad38a5d68027b8816193c0235b', 'changed': True, 'uid': 1000, 'gid': 1001, 'owner': 'jenkins', 'group': 'jenkins', 'mode': '0600', 'state': 'file', 'size': 1053, 'invocation': {'module_args': {'src': '/home/jenkins/.ansible/tmp/ansible-tmp-1699624373.8558652-6113-185550216402377/source', 'dest': '/home/jenkins/.cache/molecule/MyFreeStyleJob/default/Dockerfile_beatljs_pyubuntu_systemd', 'mode': '0600', 'follow': False, '_original_basename': 'Dockerfile.j2', 'checksum': '69932a0fdd4289ad38a5d68027b8816193c0235b', 'backup': False, 'force': True, 'unsafe_writes': False, 'content': None, 'validate': None, 'directory_mode': None, 'remote_src': None, 'local_follow': None, 'owner': None, 'group': None, 'seuser': None, 'serole': None, 'selevel': None, 'setype': None, 'attributes': None}}, 'failed': False, 'item': {'command': 'systemd', 'image': 'beatljs/pyubuntu:systemd', 'name': 'pyubuntu', 'privileged': True}, 'ansible_loop_var': 'item', 'i': 0, 'ansible_index_var': 'i'})
+
+TASK [Build an Ansible compatible image (new)] *********************************
+ok: [localhost] => (item=molecule_local/beatljs/pyubuntu:systemd)
+
+TASK [Create docker network(s)] ************************************************
+
+TASK [Determine the CMD directives] ********************************************
+ok: [localhost] => (item={'command': 'systemd', 'image': 'beatljs/pyubuntu:systemd', 'name': 'pyubuntu', 'privileged': True})
+
+TASK [Create molecule instance(s)] *********************************************
+changed: [localhost] => (item=pyubuntu)
+
+TASK [Wait for instance(s) creation to complete] *******************************
+FAILED - RETRYING: Wait for instance(s) creation to complete (300 retries left).
+changed: [localhost] => (item={'started': 1, 'finished': 0, 'ansible_job_id': '213041342771.6248', 'results_file': '/home/jenkins/.ansible_async/213041342771.6248', 'changed': True, 'failed': False, 'item': {'command': 'systemd', 'image': 'beatljs/pyubuntu:systemd', 'name': 'pyubuntu', 'privileged': True}, 'ansible_loop_var': 'item'})
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+
+INFO     Running default > prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Running default > converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+ok: [pyubuntu]
+
+TASK [Include vector-role] *****************************************************
+
+TASK [sergey.vector_role : Create temp directory] ******************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/home/jenkins/workspace/MyFreeStyleJob/molecule/default/tmpd",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [pyubuntu]
+
+TASK [sergey.vector_role : Get vector distrib] *********************************
+changed: [pyubuntu]
+
+TASK [sergey.vector_role : Create root directory] ******************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/home/jenkins/workspace/MyFreeStyleJob/molecule/default/tmpd/vector-0.29.1",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [pyubuntu]
+
+TASK [sergey.vector_role : Extract vector] *************************************
+changed: [pyubuntu]
+
+TASK [sergey.vector_role : Copy vector to bin with owner and permissions] ******
+changed: [pyubuntu]
+
+TASK [sergey.vector_role : Configure vector.service from template] *************
+--- before
++++ after: /home/jenkins/.ansible/tmp/ansible-local-6434dr93xqvj/tmphrt_uw_w/vector.service.j2
+@@ -0,0 +1,18 @@
++[Unit]
++Description=Vector
++Documentation=https://vector.dev
++After=network-online.target
++Requires=network-online.target
++
++[Service]
++User=root
++Group=0
++ExecStartPre=/usr/bin/vector validate --no-environment --config-yaml /home/jenkins/workspace/MyFreeStyleJob/molecule/default/v_conf/vector.yml
++ExecStart=/usr/bin/vector --config-yaml /home/jenkins/workspace/MyFreeStyleJob/molecule/default/v_conf/vector.yml --watch-config
++ExecReload=/usr/bin/vector validate --no-environment --config-yaml /home/jenkins/workspace/MyFreeStyleJob/molecule/default/v_conf/vector.yml
++Restart=no
++AmbientCapabilities=CAP_NET_BIND_SERVICE
++EnvironmentFile=-/etc/default/vector
++
++[Install]
++WantedBy=multi-user.target
+\ No newline at end of file
+
+changed: [pyubuntu]
+
+TASK [sergey.vector_role : Create config dir for vector] ***********************
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "mode": "0755",
++    "mode": "0644",
+     "path": "/home/jenkins/workspace/MyFreeStyleJob/molecule/default/v_conf",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [pyubuntu]
+
+TASK [sergey.vector_role : Configure vector from template] *********************
+--- before
++++ after: /home/jenkins/.ansible/tmp/ansible-local-6434dr93xqvj/tmp15yf42ao/vector.yml.j2
+@@ -0,0 +1,20 @@
++data_dir: /var/lib/vector
++sinks:
++    to_clickhouse:
++        compression: gzip
++        database: logs
++        endpoint: http://127.0.0.1:8123
++        inputs:
++        - sample_file
++        skip_unknown_fields: true
++        table: local_log
++        type: clickhouse
++sources:
++    sample_file:
++        ignore_older_secs: 600
++        include:
++        - /var/log/**/*.log
++        read_from: beginning
++        type: file
++    vector_log:
++        type: internal_logs
+
+changed: [pyubuntu]
+
+TASK [sergey.vector_role : Create data directory] ******************************
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "mode": "0755",
++    "mode": "0777",
+     "path": "/var/lib/vector",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [pyubuntu]
+
+RUNNING HANDLER [sergey.vector_role : Restart Vector service] ******************
+changed: [pyubuntu]
+
+PLAY RECAP *********************************************************************
+pyubuntu                   : ok=11   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Running default > idempotence
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+ok: [pyubuntu]
+
+TASK [Include vector-role] *****************************************************
+
+TASK [sergey.vector_role : Create temp directory] ******************************
+ok: [pyubuntu]
+
+TASK [sergey.vector_role : Get vector distrib] *********************************
+ok: [pyubuntu]
+
+TASK [sergey.vector_role : Create root directory] ******************************
+ok: [pyubuntu]
+
+TASK [sergey.vector_role : Extract vector] *************************************
+ok: [pyubuntu]
+
+TASK [sergey.vector_role : Copy vector to bin with owner and permissions] ******
+ok: [pyubuntu]
+
+TASK [sergey.vector_role : Configure vector.service from template] *************
+ok: [pyubuntu]
+
+TASK [sergey.vector_role : Create config dir for vector] ***********************
+ok: [pyubuntu]
+
+TASK [sergey.vector_role : Configure vector from template] *********************
+ok: [pyubuntu]
+
+TASK [sergey.vector_role : Create data directory] ******************************
+ok: [pyubuntu]
+
+PLAY RECAP *********************************************************************
+pyubuntu                   : ok=10   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Idempotence completed successfully.
+INFO     Running default > side_effect
+WARNING  Skipping, side effect playbook not configured.
+INFO     Running default > verify
+INFO     Running Ansible Verifier
+
+PLAY [Verify] ******************************************************************
+
+TASK [Get Vector version] ******************************************************
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+ok: [pyubuntu]
+
+TASK [Assert Vector instalation] ***********************************************
+ok: [pyubuntu] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Validation Vector configuration] *****************************************
+ok: [pyubuntu]
+
+TASK [Assert Vector validate config] *******************************************
+ok: [pyubuntu] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY RECAP *********************************************************************
+pyubuntu                   : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Verifier completed successfully.
+INFO     Running default > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Running default > destroy
+
+PLAY [Destroy] *****************************************************************
+
+TASK [Destroy molecule instance(s)] ********************************************
+/usr/local/lib/python3.6/site-packages/ansible/parsing/vault/__init__.py:44: CryptographyDeprecationWarning: Python 3.6 is no longer supported by the Python core team. Therefore, support for it is deprecated in cryptography. The next release of cryptography will remove support for Python 3.6.
+  from cryptography.exceptions import InvalidSignature
+changed: [localhost] => (item=pyubuntu)
+
+TASK [Wait for instance(s) deletion to complete] *******************************
+FAILED - RETRYING: Wait for instance(s) deletion to complete (300 retries left).
+changed: [localhost] => (item=pyubuntu)
+
+TASK [Delete docker networks(s)] ***********************************************
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Pruning extra files from scenario ephemeral directory
+Finished: SUCCESS

@@ -1,0 +1,14 @@
+[11/10/23 10:36:31] Launching agent
+$ ssh 158.160.121.155 java -jar /opt/jenkins_agent/agent.jar
+<===[JENKINS REMOTING CAPACITY]===>channel started
+Remoting version: 3131.vf2b_b_798b_ce99
+Launcher: CommandLauncher
+Communication Protocol: Standard in/out
+This is a Unix agent
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by jenkins.slaves.StandardOutputSwapper$ChannelSwapper to constructor java.io.FileDescriptor(int)
+WARNING: Please consider reporting this to the maintainers of jenkins.slaves.StandardOutputSwapper$ChannelSwapper
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+Evacuated stdout
+Agent successfully connected and online
