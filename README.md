@@ -60,10 +60,10 @@ Successfully installed sentry-sdk-1.35.0 urllib3-2.1.0
 
 [Файл test.py](./test.py)
 
-При запуске файлов успешно на выполнение генерировались события в `centry`
+При запуске файлов на выполнение успешно генерировались события в `centry`
 
 <details>
-    <summary> Вывод консоли при установке запуске файлов на выполнение...  </summary>
+    <summary> Вывод консоли при запуске файлов на выполнение...  </summary>
 
 ```
 beatl@Sirius:~/mnt-homeworks$ python3 main.py
@@ -148,7 +148,7 @@ Press Ctrl-C to quit
 
 </details>
 
-[Пришедший на почту Alert](./screenshots/Mail.ru Письмо от noreply@md.getsentry.com.pdf)
+[Пришедший на почту Alert](./screenshots/alert.pdf)
 
 ---
 
